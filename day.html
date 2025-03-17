@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Slot Machine</title>
+    <style>
+        .slot-machine {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .reel {
+            font-size: 2em;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+            margin: 0 5px;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+        .win {
+            animation: shine 1s infinite;
+        }
+        @keyframes shine {
+            0% { box-shadow: 0 0 5px #fff; }
+            50% { box-shadow: 0 0 20px #ffd700, 0 0 30px #ff8c00; }
+            100% { box-shadow: 0 0 5px #fff; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slot-machine">
+        <div class="reel" id="reel1">🍒</div>
+        <div class="reel" id="reel2">🍋</div>
+        <div class="reel" id="reel3">🍊</div>
+        <br>
+        <button class="button" onclick="spin()">Spin</button>
+        <h1>🍒🍒🍒 - 777$ MAX WIN</h1>
+        <h1>🍋🍋🍋 - 100$</h1>
+        <h1>🍊🍊🍊 - 50$</h1>
+        <h1>🍉🍉🍉 - 20$</h1>
+        <h1>🍇🍇🍇 - 10$</h1>
+        <h1>🍓🍓🍓 - 5$</h1>
+    </div>
+
+    <script>
+        function spin() {
+            const symbols = ['🍒', '🍋', '🍊', '🍉', '🍇', '🍓'];
+            const reel1 = document.getElementById('reel1');
+            const reel2 = document.getElementById('reel2');
+            const reel3 = document.getElementById('reel3');
+            reel1.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            reel2.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            reel3.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+
+            const reels = [reel1.innerText, reel2.innerText, reel3.innerText];
+            const uniqueSymbols = [...new Set(reels)];
+
+            if (uniqueSymbols.length === 1) {
+                reel1.classList.add('win');
+                reel2.classList.add('win');
+                reel3.classList.add('win');
+                setTimeout(() => {
+                    reel1.classList.remove('win');
+                    reel2.classList.remove('win');
+                    reel3.classList.remove('win');
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
